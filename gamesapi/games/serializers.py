@@ -1,4 +1,4 @@
-from typing_extensions import Required
+#from typing_extensions import Required
 from rest_framework import serializers
 from games.models import Game
 
@@ -19,3 +19,13 @@ class GameSerializer(serializers.Serializer):
         instance.played = validated_data.get('palyed', instance.played)
         instance.save()
         return instance
+
+    try:
+        from typing_extensions import Required
+    except ImportError:
+        from typing import Generic, TypeVar
+
+        T = TypeVar("T")
+
+        class Required(Generic[T]):
+            pass
